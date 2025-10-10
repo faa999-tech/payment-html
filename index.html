@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pembayaran - Toko Saya (Tema Nebula)</title>
+    <style>
+        html {
+            background-color: #000000; /* Fallback hitam untuk seluruh halaman */
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            color: #ffffff; /* Teks putih untuk kontras gelap */
+            min-height: 100vh;
+            animation: nebula-shift 20s ease-in-out infinite alternate; /* Animasi untuk efek nebula lebih hidup */
+        }
+        @keyframes nebula-shift {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 50px; }
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff; /* Pastikan teks di container juga putih */
+        }
+        .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile h1 {
+            color: #e0e0ff;
+            text-shadow: 0 0 10px rgba(144, 238, 144, 0.5);
+            margin-bottom: 10px;
+        }
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            border: 2px solid #8a2be2;
+        }
+        .profile p {
+            color: #d0d0ff;
+            font-size: 14px;
+        }
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 15px;
+        }
+        .payment-methods h2 {
+            color: #ffd700;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        .payment-option {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 12px;
+            width: 160px;
+            min-width: 160px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            color: #ffffff; /* Pastikan teks di kotak payment putih */
+        }
+        .payment-option:hover {
+            background: rgba(138, 43, 226, 0.1);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            transform: translateY(-5px);
+        }
+        .payment-option h3 {
+            margin: 10px 0;
+            color: #e0e0ff;
+            text-shadow: 0 0 5px rgba(224, 224, 255, 0.5);
+            font-size: 16px;
+        }
+        .payment-option p {
+            color: #b0b0ff;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+        .btn-copy {
+            background: linear-gradient(45deg, #8a2be2, #4b0082);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+        }
+        .btn-copy:hover {
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+            transform: scale(1.05);
+        }
+        .btn-qris {
+            background: linear-gradient(45deg, #00bfff, #1e90ff);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 191, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-qris:hover {
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+            transform: scale(1.05);
+        }
+        .qris-note {
+            font-size: 10px;
+            color: #b0b0ff;
+            margin-top: 5px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            .payment-methods {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .payment-option {
+                width: 100%;
+                max-width: 280px;
+                min-width: auto;
+            }
+            .profile {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. Profil dan Nama Toko -->
+        <section class="profile">
+            <img src="https://files.catbox.moe/s4uebz.png" alt="Logo Toko Saya">
+            <h1>Toko Saya</h1>
+            <p>Profil: Toko online terpercaya menyediakan berbagai produk berkualitas tinggi. Hubungi kami di: example@email.com | 0812-3456-7890</p>
+        </section>
+
+        <!-- 3. Metode Pembayaran: DANA, GoPay, OVO, QRIS -->
+        <section class="payment-methods">
+            <h2>Pilih Metode Pembayaran</h2>
+            
+            <div class="payment-option">
+                <h3>DANA</h3>
+                <p>Bayar dengan saldo DANA Anda.</p>
+                <button class="btn-copy" onclick="copyToClipboard('dana')">Salin Nomor</button>
+            </div>
+            
+            <div class="payment-option">
+                <h3>GoPay</h3>
+                <p>Bayar menggunakan GoPay dari Gojek.</p>
+                <button class="btn-copy" onclick="copyToClipboard('gopay')">Salin Nomor</button>
+            </div>
+            
+            <div class="payment-option">
+                <h3>OVO</h3>
+                <p>Bayar dengan OVO Points atau saldo.</p>
+                <button class="btn-copy" onclick="copyToClipboard('ovo')">Salin Nomor</button>
+            </div>
+            
+            <div class="payment-option">
+                <h3>QRIS</h3>
+                <p>Scan QR Code untuk pembayaran instan.</p>
+                <a href="https://files.catbox.moe/orwja1.png" target="_blank" class="btn-qris">Lihat QRIS & Bayar</a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const paymentNumbers = {
+            dana: '081259435726',
+            gopay: '081226541936',
+            ovo: '088989424856'
+        };
+
+        function copyToClipboard(method) {
+            const text = paymentNumbers[method];
+            navigator.clipboard.writeText(text).then(function() {
+                // Feedback sederhana: ubah teks button sementara
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Tersalin!';
+                button.style.background = 'linear-gradient(45deg, #32cd32, #228b22)';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(45deg, #8a2be2, #4b0082)';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Gagal menyalin: ', err);
+                alert('Gagal menyalin nomor. Silakan salin manual.');
+            });
+        }
+    </script>
+</body>
+</html>
