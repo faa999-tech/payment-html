@@ -1,0 +1,326 @@
+/* Preload untuk gambar agar loading smooth */
+.preload {
+    display: none;
+}
+
+html {
+    background-color: #000000; /* Fallback hitam untuk seluruh halaman */
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth; /* Smooth scroll jika ada link internal */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    /* Sederhanakan efek bintang: Kurangi jumlah radial-gradient untuk performa lebih baik */
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #eee, transparent),
+        radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 150px 100px; /* Kurangi ukuran repeat untuk kurangi beban */
+    background-attachment: fixed; /* FIXED background agar tidak bergerak saat scroll, kurangi repaint */
+    color: #ffffff; /* Teks putih untuk kontras gelap */
+    min-height: 100vh;
+    /* Animasi nebula lebih lambat dan opsional - pause saat scroll */
+    animation: nebula-shift 60s linear infinite; /* Ubah ke linear dan lebih lambat (60s) */
+    will-change: background-position; /* Optimasi untuk animasi */
+    transform: translateZ(0); /* Hardware acceleration */
+    position: relative; /* Untuk positioning stars */
+    /* Hormati preferensi user untuk reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+    }
+}
+
+@keyframes nebula-shift {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 25px; } /* Gerakan lebih kecil untuk smoothness */
+}
+
+/* Efek Bintang Tambahan: Floating twinkling stars - fixed agar tidak ikut scroll */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    transform: translateZ(0); /* Hardware acceleration untuk stars */
+    will-change: opacity; /* Optimasi */
+}
+
+.star {
+    position: absolute;
+    color: #ffffff;
+    font-size: 12px; /* Ukuran kecil untuk subtle */
+    opacity: 0.8;
+    animation: twinkle 4s ease-in-out infinite alternate; /* Lambatkan twinkle */
+    will-change: opacity, transform; /* Optimasi */
+    transform: translateZ(0); /* Hardware acceleration per star */
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.4; transform: scale(1); }
+    100% { opacity: 0.9; transform: scale(1.1); } /* Kurangi scale untuk subtle */
+}
+
+/* Posisi bintang secara manual (5-10 bintang untuk performa) - fixed posisi */
+.star:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.star:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.5s; font-size: 16px; }
+.star:nth-child(3) { top: 50%; left: 20%; animation-delay: 1s; }
+.star:nth-child(4) { top: 70%; left: 70%; animation-delay: 1.5s; font-size: 14px; }
+.star:nth-child(5) { top: 80%; left: 15%; animation-delay: 2s; }
+.star:nth-child(6) { top: 30%; left: 60%; animation-delay: 2.5s; font-size: 10px; }
+.star:nth-child(7) { top: 60%; left: 90%; animation-delay: 0.2s; }
+.star:nth-child(8) { top: 15%; left: 50%; animation-delay: 1.2s; font-size: 18px; }
+
+/* Di mobile, kurangi bintang untuk performa */
+@media (max-width: 600px) {
+    .stars .star:nth-child(n+5) { display: none; } /* Tampilkan hanya 4 bintang */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .star { animation: none; opacity: 0.6; }
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px); /* Kurangi blur dari 10px ke 5px untuk performa */
+    -webkit-backdrop-filter: blur(5px); /* Support Safari */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Kurangi shadow complexity */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    /* Animasi fade in lebih sederhana dan cepat */
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        opacity: 1;
+    }
+    position: relative;
+    z-index: 1; /* Di atas stars */
+    transform: translateZ(0); /* Hardware acceleration untuk container */
+    will-change: transform; /* Optimasi scroll */
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+    /* Animasi slide in lebih sederhana */
+    opacity: 0;
+    transform: translateY(10px); /* Kurangi jarak dari 20px */
+    animation: slideInUp 0.5s ease-out 0.1s forwards;
+    @media (prefers-reduced-motion: reduce) {
+        opacity: 1;
+        transform: none;
+    }
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+@keyframes slideInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile h1 {
+    color: #e0e0ff;
+    text-shadow: 0 0 10px rgba(144, 238, 144, 0.5);
+    margin-bottom: 10px;
+    transition: text-shadow 0.3s ease; /* Hanya shadow, kurangi all */
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5); /* Kurangi shadow */
+    border: 2px solid #8a2be2;
+    transition: transform 0.3s ease;
+    /* Lazy loading untuk gambar */
+    loading: lazy;
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+.profile img:hover {
+    transform: scale(1.02); /* Kurangi scale dari 1.05 untuk subtle */
+}
+
+.profile p {
+    color: #d0d0ff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideInUp 0.5s ease-out 0.3s forwards; /* Delay lebih pendek */
+    @media (prefers-reduced-motion: reduce) {
+        opacity: 1;
+        transform: none;
+    }
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+.payment-methods h2 {
+    color: #ffd700;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    transition: text-shadow 0.3s ease;
+}
+
+.payment-methods h2:hover {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7); /* Kurangi glow */
+}
+
+.payment-option {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    border-radius: 12px;
+    width: 160px;
+    min-width: 160px;
+    cursor: pointer;
+    transition: all 0.3s ease-out; /* Ganti ke ease-out sederhana, kurangi cubic-bezier */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Kurangi shadow */
+    box-sizing: border-box;
+    color: #ffffff;
+    will-change: transform; /* Hanya transform, kurangi */
+    /* Animasi stagger lebih sederhana: Hanya untuk desktop */
+    opacity: 0;
+    transform: translateY(10px);
+    animation: staggerIn 0.4s ease-out forwards;
+    @media (max-width: 600px) or (prefers-reduced-motion: reduce) {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+    transform: translateZ(0); /* Hardware acceleration per option */
+}
+
+.payment-option:nth-child(1) { animation-delay: 0.4s; }
+.payment-option:nth-child(2) { animation-delay: 0.5s; }
+.payment-option:nth-child(3) { animation-delay: 0.6s; }
+.payment-option:nth-child(4) { animation-delay: 0.7s; }
+
+@keyframes staggerIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.payment-option:hover {
+    background: rgba(138, 43, 226, 0.1);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4), 0 6px 15px rgba(0, 0, 0, 0.3); /* Kurangi intensity */
+    transform: translateY(-3px); /* Kurangi dari -5px */
+}
+
+.payment-option h3 {
+    margin: 10px 0;
+    color: #e0e0ff;
+    text-shadow: 0 0 5px rgba(224, 224, 255, 0.5);
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.payment-option:hover h3 {
+    color: #ffd700;
+}
+
+.payment-option p {
+    color: #b0b0ff;
+    font-size: 11px;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.btn-copy, .btn-qris {
+    background: linear-gradient(45deg, #8a2be2, #4b0082);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 12px;
+    transition: all 0.2s ease-out; /* Lebih cepat dan sederhana */
+    box-shadow: 0 2px 8px rgba(138, 43, 226, 0.3); /* Kurangi shadow */
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+.btn-qris {
+    background: linear-gradient(45deg, #00bfff, #1e90ff);
+    margin-top: 8px;
+    box-shadow: 0 2px 8px rgba(0, 191, 255, 0.3);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-copy:hover, .btn-qris:hover {
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.5), 0 3px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03); /* Kurangi dari 1.05 */
+}
+
+.btn-copy:active, .btn-qris:active {
+    transform: scale(0.98);
+}
+
+.qris-note {
+    font-size: 10px;
+    color: #b0b0ff;
+    margin-top: 5px;
+}
+
+/* Loading fallback jika gambar lambat */
+img {
+    transition: opacity 0.3s ease;
+}
+
+img[src=""] {
+    opacity: 0;
+}
+
+/* Temporary copy area - tersembunyi */
+.copy-temp {
+    position: fixed;
+    top: -100%;
+    left: -100%;
+    opacity: 0;
+    z-index: 9999;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    .payment-methods {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .payment-option {
+        width: 100%;
+        max-width: 280px;
+        min-width: auto;
+   
