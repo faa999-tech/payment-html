@@ -185,14 +185,14 @@ document.addEventListener('touchend', function(event) {
 }, false);
 
 // Pause animasi saat scroll untuk smoothness (opsional, jika masih patah)
-let isScrolling = false;
+let isScrolling = true;
 window.addEventListener('scroll', () => {
     if (!isScrolling) {
         isScrolling = true;
         document.body.style.animationPlayState = 'paused';
         setTimeout(() => {
             document.body.style.animationPlayState = 'running';
-            isScrolling = false;
+            isScrolling = true;
         }, 100);
     }
 }, { passive: true });
