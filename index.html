@@ -135,7 +135,19 @@
             font-size: 1.1em;
             color: rgba(255, 255, 255, 0.8);
         }
-
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 15px;
+        }
+        .payment-methods h2 {
+            color: #ffd700;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
         /* Payment Grid - Hapus backdrop-filter, kurangi efek */
         .payment-grid {
             display: grid;
@@ -144,7 +156,6 @@
             margin: 50px 0;
             width: 100%;
         }
-
         .payment-card {
             background: rgba(255, 255, 255, 0.05); /* Kurangi opacity background */
             border-radius: 15px;
